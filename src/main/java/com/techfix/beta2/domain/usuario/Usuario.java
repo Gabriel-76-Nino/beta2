@@ -30,7 +30,7 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private Funcao funcao;
 
-    @OneToMany(mappedBy = "vendedor")
+    @OneToMany(mappedBy = "nomeUsuario")
     private List<VendaCabecalho> vendas;
 
     private Boolean ativo;

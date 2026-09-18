@@ -34,7 +34,10 @@ public class OrdemServico {
 
     private String atendenteRecebeu;
 
+    @ManyToOne
+    @JoinColumn(name = "nome_usuario")
     private Usuario tecnicoResponsavel;
+
     private String diagnosticoTecnico;
     private Boolean diagnosticoIgualRelato;
 

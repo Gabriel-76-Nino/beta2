@@ -2,6 +2,7 @@ package com.techfix.beta2.domain.pessoa;
 
 import com.techfix.beta2.domain.endereco.Endereco;
 import com.techfix.beta2.domain.ordemservico.OrdemServico;
+import com.techfix.beta2.domain.pessoa.dto.CadastroPessoaDto;
 import com.techfix.beta2.domain.produto.Produto;
 import com.techfix.beta2.domain.produto.Referencia;
 import com.techfix.beta2.domain.venda.VendaCabecalho;
@@ -51,5 +52,27 @@ public class Pessoa {
     private List<VendaCabecalho> vendasCliente;
 
 
+    public Pessoa(CadastroPessoaDto dto) {
+        this.nome = dto.nome();
+        this.razaoSocial = dto.razaoSocial();
+        this.cpfCnpj = dto.cpfCnpj();
+        this.email = dto.email();
+        this.nacimentoFundacao = dto.nacimentoFundacao();
+        this.telefoneTitular = dto.telefoneTitular();
+        this.endereco = new Endereco(dto.logradouro(),
+                dto.numero(),
+                dto.bairro(),
+                dto.complemento(),
+                dto.cidade(),
+                dto.uf(),
+                dto.cep());
+        this.nomeSegundaPessoa = dto.nomeSegundaPessoa();
+        this.telefoneSegundaPessoa = dto.telefoneSegundaPessoa();
+        this.cliente = dto.cliente();
+        this.funcionario = dto.funcionario();
+        this.fornecedor = dto.fornecedor();
+        this.siteFornecedor = dto.siteFornecedor();
 
+
+    }
 }

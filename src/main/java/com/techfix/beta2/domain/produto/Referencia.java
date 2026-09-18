@@ -20,11 +20,13 @@ public class Referencia {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "id_fornecedor")
     private Pessoa fornecedor;
 
     @ManyToOne
+    @JoinColumn(name = "id_produto")
     private Produto produto;
+
     private String referencia;
 
 }

@@ -3,6 +3,7 @@ package com.techfix.beta2.domain.produto;
 import com.techfix.beta2.domain.aparelho.Aparelho;
 import com.techfix.beta2.domain.compra.RequisicaoCorpo;
 import com.techfix.beta2.domain.pessoa.Pessoa;
+import com.techfix.beta2.domain.produto.dto.CadastroProdutoDto;
 import com.techfix.beta2.domain.venda.VendaCorpo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -90,4 +91,24 @@ public class Produto {
     @OneToMany(mappedBy = "produto")
     private List<RequisicaoCorpo> requisicaoCorpo;
 
+    public Produto(CadastroProdutoDto dto, Marca marca, Departamento departamento, Categoria categoria, Subcategoria subcategoria, Pessoa fornecedor, Garatia garantia, UnidadeMedida unidadeMedida) {
+        this.descricao = dto.descricao();
+        this.descricaoComercial = dto.descricaoComercial();
+        this.tipo = dto.tipo();
+        this.marca = marca;
+        this.departamento = departamento;
+        this.categoria = categoria;
+        this.subcategoria = subcategoria;
+        this.fornecedor = fornecedor;
+        new CodigoBarras(null, this, dto.codigoBarras(), unidadeMedida);
+        new Referencia(null, fornecedor, this, dto.referencia());
+        this.margem = dto.margem();
+        this.minimo = dto.minimo();
+        this.maximo = dto.maximo();
+        new Estoque(null, this, 0, 0, 0, 0);
+        this.garatia = garantia;
+        this.unidadeMedida = unidadeMedida;
+        this.ativo = true;
+        this.foto = dto.foto();
+    }
 }

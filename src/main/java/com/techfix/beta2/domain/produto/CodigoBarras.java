@@ -19,12 +19,13 @@ public class CodigoBarras {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "id_produto")
     private Produto produto;
 
     private String gtin;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "id_unidade_medida")
     private UnidadeMedida unidadeMedida;
 
 }

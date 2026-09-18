@@ -42,7 +42,7 @@ public class PedidoCabecalho {
     private int prazoPagamento;
 
     @OneToMany(mappedBy = "pedidoCabecalho")
-    private List<PedidoCabecalho> pedidoCabecalho;
+    private List<PedidoCorpo> pedidoCorpo;
 
 
 }
