@@ -3,7 +3,17 @@ package com.techfix.beta2.domain.produto;
 import com.techfix.beta2.domain.aparelho.Aparelho;
 import com.techfix.beta2.domain.compra.RequisicaoCorpo;
 import com.techfix.beta2.domain.pessoa.Pessoa;
+import com.techfix.beta2.domain.agregadosProduto.categoria.Categoria;
+import com.techfix.beta2.domain.agregadosProduto.codigoBarras.CodigoBarras;
+import com.techfix.beta2.domain.agregadosProduto.compatibilidade.Compatibilidade;
+import com.techfix.beta2.domain.agregadosProduto.departamento.Departamento;
 import com.techfix.beta2.domain.produto.dto.CadastroProdutoDto;
+import com.techfix.beta2.domain.agregadosProduto.estoque.Estoque;
+import com.techfix.beta2.domain.agregadosProduto.garantia.Garantia;
+import com.techfix.beta2.domain.agregadosProduto.marca.Marca;
+import com.techfix.beta2.domain.agregadosProduto.referencia.Referencia;
+import com.techfix.beta2.domain.agregadosProduto.subcategoria.Subcategoria;
+import com.techfix.beta2.domain.agregadosProduto.unidadeMedida.UnidadeMedida;
 import com.techfix.beta2.domain.venda.VendaCorpo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,6 +22,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -69,7 +80,7 @@ public class Produto {
 
     @ManyToOne
     @JoinColumn(name = "id_garantia")
-    private Garatia garatia;
+    private Garantia garantia;
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<Compatibilidade> compatibilidade;
@@ -91,7 +102,7 @@ public class Produto {
     @OneToMany(mappedBy = "produto")
     private List<RequisicaoCorpo> requisicaoCorpo;
 
-    public Produto(CadastroProdutoDto dto, Marca marca, Departamento departamento, Categoria categoria, Subcategoria subcategoria, Pessoa fornecedor, Garatia garantia, UnidadeMedida unidadeMedida) {
+    public Produto(CadastroProdutoDto dto, Marca marca, Departamento departamento, Categoria categoria, Subcategoria subcategoria, Pessoa fornecedor, Garantia garantia, UnidadeMedida unidadeMedida) {
         this.descricao = dto.descricao();
         this.descricaoComercial = dto.descricaoComercial();
         this.tipo = dto.tipo();
@@ -100,13 +111,15 @@ public class Produto {
         this.categoria = categoria;
         this.subcategoria = subcategoria;
         this.fornecedor = fornecedor;
-        new CodigoBarras(null, this, dto.codigoBarras(), unidadeMedida);
-        new Referencia(null, fornecedor, this, dto.referencia());
+        this.codigoBarras = new ArrayList<>();
+        this.codigoBarras.add(new CodigoBarras(null, this, dto.codigoBarras(), unidadeMedida));
+        this.referencia = new ArrayList<>();
+        this.referencia.add(new Referencia(null, fornecedor, this, dto.referencia()));
         this.margem = dto.margem();
         this.minimo = dto.minimo();
         this.maximo = dto.maximo();
-        new Estoque(null, this, 0, 0, 0, 0);
-        this.garatia = garantia;
+        this.estoque = new Estoque(null, this, 0, 0, 0, 0);
+        this.garantia = garantia;
         this.unidadeMedida = unidadeMedida;
         this.ativo = true;
         this.foto = dto.foto();

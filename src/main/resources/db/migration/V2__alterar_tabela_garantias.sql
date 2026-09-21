@@ -1,0 +1,2 @@
+alter table garantias
+rename column tempo_garantia to tempo_garantia_dias

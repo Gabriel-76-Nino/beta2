@@ -1,15 +1,14 @@
 package com.techfix.beta2.domain.pessoa;
 
+import com.techfix.beta2.domain.aparelhosCliente.AparelhoCliente;
 import com.techfix.beta2.domain.endereco.Endereco;
 import com.techfix.beta2.domain.ordemservico.OrdemServico;
 import com.techfix.beta2.domain.pessoa.dto.CadastroPessoaDto;
 import com.techfix.beta2.domain.produto.Produto;
-import com.techfix.beta2.domain.produto.Referencia;
 import com.techfix.beta2.domain.venda.VendaCabecalho;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.lang.ref.Reference;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class Pessoa {
     private Boolean fornecedor;
     private String siteFornecedor;
 
-    @OneToMany(mappedBy = "pessoaId")
+    @OneToMany(mappedBy = "pessoa")
     private List<OrdemServico> ordemServico;
 
     @OneToMany(mappedBy = "fornecedor")
@@ -51,6 +50,8 @@ public class Pessoa {
     @OneToMany(mappedBy = "cliente")
     private List<VendaCabecalho> vendasCliente;
 
+    @OneToMany(mappedBy = "pessoa")
+    private List<AparelhoCliente> aparelhoCliente;
 
     public Pessoa(CadastroPessoaDto dto) {
         this.nome = dto.nome();

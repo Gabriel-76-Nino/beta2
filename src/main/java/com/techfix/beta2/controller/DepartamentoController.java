@@ -1,8 +1,7 @@
 package com.techfix.beta2.controller;
 
-import com.techfix.beta2.domain.produto.Departamento;
-import com.techfix.beta2.domain.produto.DepartamentoDto;
-import com.techfix.beta2.domain.produto.DepartamentoRepository;
+import com.techfix.beta2.domain.agregadosProduto.departamento.DepartamentoDto;
+import com.techfix.beta2.domain.agregadosProduto.departamento.DepartamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,20 +14,19 @@ import java.util.List;
 public class DepartamentoController {
 
     @Autowired
-    private DepartamentoRepository departamentoRepository;
+    private DepartamentoService departamentoService;
 
     @GetMapping
     public ResponseEntity<List<DepartamentoDto>> listarDepartamentos(){
-        List<DepartamentoDto> departamentoDto = departamentoRepository.findAll().stream()
-                .map(d -> new DepartamentoDto(d.getId(), d.getNomeDepartamento())).toList();
+        List<DepartamentoDto> departamentoDto = departamentoService.listarDepartamentos();
         return ResponseEntity.ok(departamentoDto);
     }
 
     @PostMapping
     @Transactional
     public ResponseEntity<DepartamentoDto> cadastrarDepartamento(@RequestBody DepartamentoDto dto){
-        departamentoRepository.save(new Departamento(null, dto.nomeDepartamento(), null, null));
-        return ResponseEntity.ok(dto);
+        DepartamentoDto departamentoDto = departamentoService.cadatrarDepartamento(dto);
+        return ResponseEntity.ok(departamentoDto);
     }
 
 }

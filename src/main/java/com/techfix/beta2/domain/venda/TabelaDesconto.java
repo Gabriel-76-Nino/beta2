@@ -1,10 +1,10 @@
 package com.techfix.beta2.domain.venda;
 
 
-import com.techfix.beta2.domain.produto.Categoria;
-import com.techfix.beta2.domain.produto.Departamento;
+import com.techfix.beta2.domain.agregadosProduto.categoria.Categoria;
+import com.techfix.beta2.domain.agregadosProduto.departamento.Departamento;
 import com.techfix.beta2.domain.produto.Produto;
-import com.techfix.beta2.domain.produto.Subcategoria;
+import com.techfix.beta2.domain.agregadosProduto.subcategoria.Subcategoria;
 import com.techfix.beta2.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

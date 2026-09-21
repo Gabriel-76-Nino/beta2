@@ -1,8 +1,10 @@
 package com.techfix.beta2.domain.ordemservico;
 
+import com.techfix.beta2.domain.aparelhosCliente.AparelhoCliente;
 import com.techfix.beta2.domain.orcamento.Orcamento;
 import com.techfix.beta2.domain.ordemservico.dto.DadosOSCadastro;
 import com.techfix.beta2.domain.pessoa.Pessoa;
+import com.techfix.beta2.domain.produto.Produto;
 import com.techfix.beta2.domain.usuario.Usuario;
 import com.techfix.beta2.domain.venda.VendaCabecalho;
 import jakarta.persistence.*;
@@ -25,14 +27,20 @@ public class OrdemServico {
     private Long id;
 
     @ManyToOne
-    private Pessoa pessoaId;
+    @JoinColumn(name = "id_pessoa")
+    private Pessoa pessoa;
+
     private LocalDateTime dataEntrada;
-    private String aparelhoCliente; // terá objeto Aparelho
+
+    @ManyToOne
+    @JoinColumn(name = "id_aparelho_cliente")
+    private AparelhoCliente aparelhoCliente;
+
     private String problemaRelatado;
     private String fotoEntrada;
     private String acessoriosCliente;
 
-    private String atendenteRecebeu;
+    private Usuario atendenteRecebeu;
 
     @ManyToOne
     @JoinColumn(name = "nome_usuario")
@@ -55,19 +63,20 @@ public class OrdemServico {
     @OneToOne
     private VendaCabecalho notaVenda;
 
-//    public OrdemServico(DadosOSCadastro dto, Pessoa id) {
-//        this.pessoaId = id;
-//        this.dataEntrada = LocalDateTime.now();
-//        this.aparelhoCliente = dto.aparelhoCliente();
-//        this.problemaRelatado = dto.problemaRelatado();
-//        this.acessoriosCliente = dto.acessoriosCliente();
-//        this.atendenteRecebeu = dto.atendenteRecebeu();
-//        if (statusOS == null) {
-//            this.statusOS = StatusOS.AGUARDANDO_ATENDIMENTO;
-//        }   else {
-//            this.statusOS = StatusOS.APROVADO_BALCAO;
-//        }
-//    }
+
+    public OrdemServico(DadosOSCadastro dto, Pessoa id, Usuario usuario, Produto produto) {
+        this.pessoa = id;
+        this.dataEntrada = LocalDateTime.now();
+        this.aparelhoCliente = new AparelhoCliente(dto, produto, pessoa);
+        this.problemaRelatado = dto.problemaRelatado();
+        this.acessoriosCliente = dto.acessoriosCliente();
+        this.atendenteRecebeu = usuario;
+        if (statusOS == null) {
+            this.statusOS = StatusOS.AGUARDANDO_ATENDIMENTO;
+        }   else {
+            this.statusOS = StatusOS.APROVADO_BALCAO;
+        }
+    }
 
 
 

@@ -1,10 +1,7 @@
 package com.techfix.beta2.controller;
 
-import com.techfix.beta2.domain.pessoa.Pessoa;
-import com.techfix.beta2.domain.pessoa.PessoaRepository;
-import com.techfix.beta2.domain.produto.GarantiaDto;
-import com.techfix.beta2.domain.produto.GarantiaRepository;
-import com.techfix.beta2.domain.produto.Garatia;
+import com.techfix.beta2.domain.agregadosProduto.garantia.GarantiaService;
+import com.techfix.beta2.domain.agregadosProduto.garantia.GarantiaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,24 +14,18 @@ import java.util.List;
 public class GarantiaController {
 
     @Autowired
-    private GarantiaRepository garantiaRepository;
-
-    @Autowired
-    private PessoaRepository pessoaRepository;
+    private GarantiaService garantiaService;
 
     @GetMapping
     public ResponseEntity<List<GarantiaDto>> listarGarantias(){
-        List<GarantiaDto> garantiaDto = garantiaRepository.findAll().stream()
-                .map(g -> new GarantiaDto(g.getId(), g.getFornecedor().getNome(),
-                        g.getDetalhesGarantia(), g.getTempoGarantiaDias())).toList();
+        List<GarantiaDto> garantiaDto = garantiaService.listarGarantias();
         return ResponseEntity.ok(garantiaDto);
     }
 
     @PostMapping
     @Transactional
     public ResponseEntity<GarantiaDto> cadastrarGarantia(@RequestBody GarantiaDto dto){
-        Pessoa fornecedor = pessoaRepository.getReferenceByNome(dto.fornecedor());
-        garantiaRepository.save(new Garatia(null, fornecedor, dto.detalhesGarantia(), dto.tempoGarantiaDias()));
-        return ResponseEntity.ok(dto);
+        GarantiaDto garantiaDto = garantiaService.cadastrarGarantia(dto);
+        return ResponseEntity.ok(garantiaDto);
     }
 }

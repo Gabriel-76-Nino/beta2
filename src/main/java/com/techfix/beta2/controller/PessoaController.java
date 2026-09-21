@@ -1,7 +1,5 @@
 package com.techfix.beta2.controller;
 
-import com.techfix.beta2.domain.pessoa.Pessoa;
-import com.techfix.beta2.domain.pessoa.PessoaRepository;
 import com.techfix.beta2.domain.pessoa.dto.CadastroPessoaDto;
 import com.techfix.beta2.domain.pessoa.dto.PessoaDto;
 import com.techfix.beta2.domain.pessoa.service.PessoaService;
@@ -17,9 +15,6 @@ import java.util.List;
 public class PessoaController {
 
     @Autowired
-    private PessoaRepository pessoaRepository;
-
-    @Autowired
     private PessoaService pessoaService;
 
     @GetMapping
@@ -30,11 +25,9 @@ public class PessoaController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Pessoa> cadastroPessoa(@RequestBody CadastroPessoaDto dto){
-
-        Pessoa pessoa = new Pessoa(dto);
-        pessoaRepository.save(pessoa);
-        return ResponseEntity.ok(pessoa);
+    public ResponseEntity<PessoaDto> cadastroPessoa(@RequestBody CadastroPessoaDto dto){
+        PessoaDto pessoaDto = pessoaService.cadastrarPessoa(dto);
+        return ResponseEntity.ok(pessoaDto);
 
     }
 
