@@ -1,7 +1,7 @@
 package com.techfix.beta2.controller;
 
-import com.techfix.beta2.domain.agregadosProduto.compatibilidade.CompatibilidadeDto;
-import com.techfix.beta2.domain.agregadosProduto.compatibilidade.CompatibilidadeService;
+import com.techfix.beta2.domain.agregados_produto.compatibilidade.CompatibilidadeDto;
+import com.techfix.beta2.domain.agregados_produto.compatibilidade.CompatibilidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;

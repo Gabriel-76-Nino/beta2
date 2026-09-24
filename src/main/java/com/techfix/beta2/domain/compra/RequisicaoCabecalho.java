@@ -1,6 +1,6 @@
 package com.techfix.beta2.domain.compra;
 
-import com.techfix.beta2.domain.ordemservico.OrdemServico;
+import com.techfix.beta2.domain.ordem_servico.OrdemServico;
 import com.techfix.beta2.domain.pessoa.Pessoa;
 import com.techfix.beta2.domain.usuario.Usuario;
 import jakarta.persistence.*;

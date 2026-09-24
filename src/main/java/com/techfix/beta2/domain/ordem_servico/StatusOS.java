@@ -1,0 +1,16 @@
+package com.techfix.beta2.domain.ordem_servico;
+
+public enum StatusOS {
+
+    AGUARDANDO_ATENDIMENTO,
+    DIAGNOSTICO,
+    AGUARDANDO_APROVACAO,
+    REPROVADO,
+    APROVADO,
+    APROVADO_BALCAO,
+    AGUARDO_CHEGADA_PECAS,
+    AGUARDANDO_REPARO,
+    REPARO_CONCLUIDO,
+    RETIRADO
+
+    }

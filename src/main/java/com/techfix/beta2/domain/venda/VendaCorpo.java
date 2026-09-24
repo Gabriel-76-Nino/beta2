@@ -2,12 +2,20 @@ package com.techfix.beta2.domain.venda;
 
 import com.techfix.beta2.domain.produto.Produto;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
 @Entity
 @Table(name = "vendas_corpo")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class VendaCorpo {
 
 
@@ -27,8 +35,10 @@ public class VendaCorpo {
     private int quantidade;
     private BigDecimal precoVenda;
     private BigDecimal valorDesconto;
-    private Float percentualDesconto;
+    private Double percentualDesconto;
     private BigDecimal custoMedioVenda;
-    private float margemVenda;
+    private Double margemVenda;
+
+
 
 }

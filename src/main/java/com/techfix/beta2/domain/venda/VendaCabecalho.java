@@ -1,7 +1,7 @@
 package com.techfix.beta2.domain.venda;
 
-import com.techfix.beta2.domain.contasreceber.ContasReceber;
-import com.techfix.beta2.domain.ordemservico.OrdemServico;
+import com.techfix.beta2.domain.contas_receber.ContasReceber;
+import com.techfix.beta2.domain.ordem_servico.OrdemServico;
 import com.techfix.beta2.domain.pessoa.Pessoa;
 import com.techfix.beta2.domain.usuario.Usuario;
 import jakarta.persistence.*;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "vendas_cabecalho")
@@ -31,6 +31,7 @@ public class VendaCabecalho {
     private Pessoa cliente;
 
     private LocalDateTime dataVenda;
+    private Double valorTotalVenda;
 
     @ManyToOne
     @JoinColumn(name = "nome_usuario")
@@ -45,5 +46,16 @@ public class VendaCabecalho {
 
     @OneToMany(mappedBy = "cabecalho")
     private List<VendaCorpo> itens;
+
+    public VendaCabecalho(Pessoa cliente, Usuario usuario, OrdemServico os) {
+        this.cliente = cliente;
+        this.dataVenda = LocalDateTime.now();
+        this.nomeUsuario = usuario;
+        this.os = os;
+
+    }
+
+
+
 
 }

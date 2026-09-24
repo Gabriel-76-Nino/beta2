@@ -1,6 +1,6 @@
 package com.techfix.beta2.domain.entrada;
 
-import com.techfix.beta2.domain.contaspagar.ContasPagar;
+import com.techfix.beta2.domain.contas_pagar.ContasPagar;
 import com.techfix.beta2.domain.pessoa.Pessoa;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,12 +1,12 @@
 package com.techfix.beta2.controller;
 
 import com.techfix.beta2.domain.orcamento.dto.DadosCadastroOrcamento;
-import com.techfix.beta2.domain.ordemservico.OrdemServico;
-import com.techfix.beta2.domain.ordemservico.dto.AlterarStatusOS;
-import com.techfix.beta2.domain.ordemservico.dto.DadosAtribuirTecnico;
-import com.techfix.beta2.domain.ordemservico.dto.DadosOSCadastro;
-import com.techfix.beta2.domain.ordemservico.dto.AtribuirDiagnostico;
-import com.techfix.beta2.domain.ordemservico.service.OrdemServicoService;
+import com.techfix.beta2.domain.ordem_servico.OrdemServico;
+import com.techfix.beta2.domain.ordem_servico.dto.AlterarStatusOS;
+import com.techfix.beta2.domain.ordem_servico.dto.DadosAtribuirTecnico;
+import com.techfix.beta2.domain.ordem_servico.dto.DadosOSCadastro;
+import com.techfix.beta2.domain.ordem_servico.dto.AtribuirDiagnostico;
+import com.techfix.beta2.domain.ordem_servico.service.OrdemServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,8 +43,8 @@ public class OrdemServicoController {
 
     @PutMapping("/diagnostico")
     @Transactional
-    public ResponseEntity atribuirDianostico (@RequestBody AtribuirDiagnostico dto){
-        var os = ordemServicoService.atribuirDianostico(dto);
+    public ResponseEntity<DadosOSCadastro> atribuirDianostico (@RequestBody AtribuirDiagnostico dto){
+        DadosOSCadastro os = ordemServicoService.atribuirDianostico(dto);
         return ResponseEntity.ok(os);
     }
 

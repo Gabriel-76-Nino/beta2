@@ -1,0 +1,54 @@
+package com.techfix.beta2.domain.desconto;
+
+
+import com.techfix.beta2.domain.agregados_produto.categoria.Categoria;
+import com.techfix.beta2.domain.agregados_produto.departamento.Departamento;
+import com.techfix.beta2.domain.pagamento.FormaPagamento;
+import com.techfix.beta2.domain.produto.Produto;
+import com.techfix.beta2.domain.agregados_produto.subcategoria.Subcategoria;
+import com.techfix.beta2.domain.usuario.Usuario;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Table(name = "tabelas_descontos")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class TabelaDesconto {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "nome_usuario")
+    private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "id_departamento")
+    private Departamento departamento;
+
+    @ManyToOne
+    @JoinColumn(name = "id_categoria")
+    private Categoria categoria;
+
+    @ManyToOne
+    @JoinColumn(name = "id_subcategoria")
+    private Subcategoria subcategoria;
+
+    @ManyToOne
+    @JoinColumn(name = "id_fpg")
+    private FormaPagamento formaPagamento;
+
+    @ManyToOne
+    @JoinColumn(name = "id_produto")
+    private Produto produto;
+
+    private Double desconto;
+
+}

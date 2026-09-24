@@ -1,7 +1,7 @@
 package com.techfix.beta2.domain.orcamento;
 
 import com.techfix.beta2.domain.orcamento.dto.DadosCadastroOrcamento;
-import com.techfix.beta2.domain.ordemservico.OrdemServico;
+import com.techfix.beta2.domain.ordem_servico.OrdemServico;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "orcamentos")

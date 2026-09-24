@@ -1,7 +1,7 @@
 package com.techfix.beta2.controller;
 
-import com.techfix.beta2.domain.agregadosProduto.codigoBarras.CodigoBarrasDto;
-import com.techfix.beta2.domain.agregadosProduto.codigoBarras.CodigoBarrasService;
+import com.techfix.beta2.domain.agregados_produto.codigoBarras.CodigoBarrasDto;
+import com.techfix.beta2.domain.agregados_produto.codigoBarras.CodigoBarrasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;

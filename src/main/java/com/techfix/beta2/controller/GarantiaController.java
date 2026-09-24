@@ -1,7 +1,7 @@
 package com.techfix.beta2.controller;
 
-import com.techfix.beta2.domain.agregadosProduto.garantia.GarantiaService;
-import com.techfix.beta2.domain.agregadosProduto.garantia.GarantiaDto;
+import com.techfix.beta2.domain.agregados_produto.garantia.GarantiaService;
+import com.techfix.beta2.domain.agregados_produto.garantia.GarantiaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;

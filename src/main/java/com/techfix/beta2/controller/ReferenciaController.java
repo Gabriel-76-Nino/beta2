@@ -1,7 +1,7 @@
 package com.techfix.beta2.controller;
 
-import com.techfix.beta2.domain.agregadosProduto.referencia.ReferenciaDto;
-import com.techfix.beta2.domain.agregadosProduto.referencia.ReferenciaService;
+import com.techfix.beta2.domain.agregados_produto.referencia.ReferenciaDto;
+import com.techfix.beta2.domain.agregados_produto.referencia.ReferenciaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

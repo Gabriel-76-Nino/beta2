@@ -1,7 +1,7 @@
 package com.techfix.beta2.controller;
 
-import com.techfix.beta2.domain.agregadosProduto.categoria.CategoriaDto;
-import com.techfix.beta2.domain.agregadosProduto.categoria.CategoriaService;
+import com.techfix.beta2.domain.agregados_produto.categoria.CategoriaDto;
+import com.techfix.beta2.domain.agregados_produto.categoria.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
