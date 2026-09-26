@@ -16,7 +16,7 @@ public record ProdutoDto(
         Long fornecedor,
         Double margem,
         BigDecimal custoMedio,
-        BigDecimal precoVenda,
+        Double precoVenda,
         BigDecimal precoSugestao,
         Integer minimo,
         Integer maximo,

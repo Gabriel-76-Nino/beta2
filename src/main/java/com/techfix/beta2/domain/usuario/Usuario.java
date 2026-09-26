@@ -35,4 +35,10 @@ public class Usuario {
 
     private Boolean ativo;
 
+    @Override
+    public String toString() {
+        return "id " + id +
+                ", nomeUsuario " + nomeUsuario +
+                ", ativo " + ativo;
+    }
 }

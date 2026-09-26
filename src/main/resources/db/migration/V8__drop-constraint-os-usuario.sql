@@ -1,0 +1,2 @@
+alter table ordens_servicos
+drop constraint fk_ordens_servicos_usuario_atendeu

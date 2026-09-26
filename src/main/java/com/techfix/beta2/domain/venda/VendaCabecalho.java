@@ -34,7 +34,10 @@ public class VendaCabecalho {
     private Double valorTotalVenda;
 
     @ManyToOne
-    @JoinColumn(name = "nome_usuario")
+    @JoinColumn(
+            name = "nome_usuario",
+            referencedColumnName = "nomeUsuario"
+    )
     private Usuario nomeUsuario;
 
     @OneToOne(mappedBy = "notaVenda")
@@ -52,10 +55,14 @@ public class VendaCabecalho {
         this.dataVenda = LocalDateTime.now();
         this.nomeUsuario = usuario;
         this.os = os;
-
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return  "id " + id +
+                ", numeroNota " + numeroNota +
+                ", dataVenda " + dataVenda +
+                ", valorTotalVenda " + valorTotalVenda +
+                ", usuario " + nomeUsuario;
+    }
 }

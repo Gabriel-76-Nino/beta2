@@ -8,10 +8,11 @@ public record VendaCorpoDto(
         Integer numeroItem,
         Long produto,
         Integer quantidade,
-        BigDecimal precoVenda,
+        Double precoVenda,
         BigDecimal valorDesconto,
         Double percentualDesconto,
         BigDecimal custoMedioVenda,
-        Double margemVenda
+        Double margemVenda,
+        Double valorTotalProduto
 ) {
 }

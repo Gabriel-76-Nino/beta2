@@ -1,0 +1,2 @@
+alter table usuarios
+drop constraint uk_nome_usuario

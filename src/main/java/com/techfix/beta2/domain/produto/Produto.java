@@ -70,7 +70,7 @@ public class Produto {
 
     private Double margem;
     private BigDecimal custoMedio;
-    private BigDecimal precoVenda;
+    private Double precoVenda;
     private BigDecimal precoSugestao;
     private int minimo;
     private int maximo;

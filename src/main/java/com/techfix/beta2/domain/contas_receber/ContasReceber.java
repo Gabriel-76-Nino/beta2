@@ -40,9 +40,22 @@ public class ContasReceber {
     private int numeroParcela;
     private Double valorParcela;
     private LocalDateTime vencimento;
+    private int quantidadeTotalParcelas;
 
 
     @Enumerated(EnumType.STRING)
     private StatusParcela statusParcela;
 
+    @Override
+    public String toString() {
+        return  "id " + id +
+                ", idVenda " + vendaCabecalho.getId() +
+                ", idFpg " + fpg.getIdFpg() +
+                ", codicaoPagamento " + condicaoPagamento.getId() +
+                ", condicaoPagamentoDias " + condicaoPagamento.getQuantidadeParcelas() +
+                ", numeroParcela " + numeroParcela +
+                ", valorParcela " + valorParcela +
+                ", vencimento " + vencimento +
+                ", statusParcela " + statusParcela;
+    }
 }

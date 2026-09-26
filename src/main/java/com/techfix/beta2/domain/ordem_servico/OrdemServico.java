@@ -40,6 +40,8 @@ public class OrdemServico {
     private String fotoEntrada;
     private String acessoriosCliente;
 
+    @ManyToOne
+    @JoinColumn(name = "atendente_recebeu")
     private Usuario atendenteRecebeu;
 
     @ManyToOne

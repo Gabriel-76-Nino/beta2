@@ -1,0 +1,2 @@
+alter table vendas_cabecalho
+drop constraint fk_venda_cabecalho_usuario

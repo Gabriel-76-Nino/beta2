@@ -24,4 +24,10 @@ public class DiasCondicaoPagamento {
 
     private int dias;
 
+    @Override
+    public String toString() {
+        return  "id " + id +
+                ", condicao " + idCondicao.getId() +
+                ", dias " + dias;
+    }
 }

@@ -5,6 +5,7 @@ public record CalcularParcelas(
         Long idCondicao,
         Integer numeroParcela,
         Double valorParcela,
-        java.time.LocalDateTime vencimento
+        java.time.LocalDateTime vencimento,
+        Integer quantidadeTotalParcelas
 ) {
 }

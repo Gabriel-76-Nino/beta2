@@ -17,7 +17,7 @@ public class FormaPagamentoService {
     }
 
     public FormaPagamentoDto cadastrarFormaPagamento(FormaPagamentoDto dto) {
-        FormaPagamento formaPagamento = formaPagamentoRepository.getReferenceById(dto.idFpg());
+        FormaPagamento formaPagamento = formaPagamentoRepository.save(new FormaPagamento(null, dto.descricaoFpg(), null));
         return new FormaPagamentoDto(formaPagamento.getIdFpg(), formaPagamento.getDescricaoFpg());
     }
 }

@@ -33,12 +33,12 @@ public class VendaCorpo {
     private Produto produto;
 
     private int quantidade;
-    private BigDecimal precoVenda;
+    private Double precoVenda;
     private BigDecimal valorDesconto;
     private Double percentualDesconto;
     private BigDecimal custoMedioVenda;
     private Double margemVenda;
-
+    private Double valorTotalProduto;
 
 
 }

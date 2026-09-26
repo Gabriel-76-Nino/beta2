@@ -1,14 +1,15 @@
 package com.techfix.beta2.domain.venda;
 
 import com.techfix.beta2.domain.contas_receber.ContasReceber;
+import com.techfix.beta2.domain.contas_receber.ContasReceberRepository;
 import com.techfix.beta2.domain.contas_receber.ContasReceberService;
-import com.techfix.beta2.domain.contas_receber.StatusParcela;
 import com.techfix.beta2.domain.desconto.TabelaDescontoRepository;
 import com.techfix.beta2.domain.ordem_servico.OrdemServico;
 import com.techfix.beta2.domain.ordem_servico.OrdemServicoRepository;
 import com.techfix.beta2.domain.pagamento.*;
 import com.techfix.beta2.domain.pessoa.Pessoa;
 import com.techfix.beta2.domain.pessoa.PessoaRepository;
+import com.techfix.beta2.domain.produto.Produto;
 import com.techfix.beta2.domain.produto.ProdutoRepository;
 import com.techfix.beta2.domain.usuario.Usuario;
 import com.techfix.beta2.domain.usuario.UsuarioRepository;
@@ -40,6 +41,8 @@ public class VendaCabecalhoService {
     private TabelaDescontoRepository tabelaDescontoRepository;
     @Autowired
     private ContasReceberService contasReceberService;
+    @Autowired
+    private ContasReceberRepository contasReceberRepository;
 
     public VendaCabecalhoDto cadastrarVenda(VendaCabecalhoDto dto) {
 
@@ -54,12 +57,25 @@ public class VendaCabecalhoService {
                         p.numeroItem(), produtoRepository.getReferenceById(p.produto()),
                         p.quantidade(), p.precoVenda(), p.valorDesconto(),
                         p.percentualDesconto(), p.custoMedioVenda(),
-                        p.margemVenda())).toList();
+                        p.margemVenda(), (p.quantidade() * p.precoVenda()))).toList();
 
-        List<ContasReceber> contasReceber = contasReceberService.cadastrarFormaDePagamento(vendaCabecalho, dto);
+
+        Double valorTotalProdutos = 0.0;
+        for (VendaCorpo venda : vendaCorpo) {
+            valorTotalProdutos += venda.getValorTotalProduto();
+        }
+        vendaCabecalho.setValorTotalVenda(valorTotalProdutos);
+
+        List<ContasReceber> contasReceber = contasReceberService.cadastrarContasReceber(vendaCabecalho, dto);
+
+        System.out.println(contasReceber);
 
         vendaCabecalho.setItens(vendaCorpo);
         vendaCabecalho.setContasReceber(contasReceber);
+
+        cabecalhoRepository.save(vendaCabecalho);
+        contasReceberRepository.saveAll(contasReceber);
+        corpoRepository.saveAll(vendaCorpo);
 
         return converteVendaParaDto(vendaCabecalho);
     }
@@ -72,7 +88,7 @@ public class VendaCabecalhoService {
                 .map(v -> new VendaCorpoDto(v.getId(), v.getCabecalho().getId(),
                         v.getNumeroItem(), v.getProduto().getId(), v.getQuantidade(),
                         v.getPrecoVenda(), v.getValorDesconto(), v.getPercentualDesconto(),
-                        v.getCustoMedioVenda(), v.getMargemVenda())).toList();
+                        v.getCustoMedioVenda(), v.getMargemVenda(), v.getValorTotalProduto())).toList();
         return new VendaCabecalhoDto(venda.getId(),
                 venda.getNumeroNota(), venda.getCliente().getId(), venda.getDataVenda(),
                 venda.getNomeUsuario().getNomeUsuario(), venda.getOs().getId(), fpg, vendaCorpoDto);

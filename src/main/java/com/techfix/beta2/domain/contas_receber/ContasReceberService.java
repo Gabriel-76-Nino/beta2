@@ -19,27 +19,27 @@ public class ContasReceberService {
     @Autowired
     private DiasCondicaoPagamentoRepository diasCondicaoPagamentoRepository;
 
-    public List<ContasReceber> cadastrarFormaDePagamento(VendaCabecalho vendaCabecalho, VendaCabecalhoDto dto) {
+    public List<ContasReceber> cadastrarContasReceber(VendaCabecalho vendaCabecalho, VendaCabecalhoDto dto) {
 
         List<CondicaoPagamento> condicaoPagamento = dto.fpgs().stream()
-                .map(c -> condicaoPagamentoRepository
-                        .getReferenceById(c.idCondicao())).toList();
+                .map(c -> condicaoPagamentoRepository.getReferenceById(c.idCondicao())).toList();
 
         List<CalcularParcelas> calculo = calcularNumeroParcela(vendaCabecalho, condicaoPagamento);
 
         return calculo.stream()
                 .map(c -> new ContasReceber(null, vendaCabecalho, formaPagamentoRepository.getReferenceById(c.idFpg()),
                         condicaoPagamentoRepository.getReferenceById(c.idCondicao()), c.numeroParcela(), c.valorParcela(), c.vencimento(),
-                        StatusParcela.EM_ABERTO)).toList();
+                        c.quantidadeTotalParcelas(), StatusParcela.EM_ABERTO)).toList();
     }
 
     private List<CalcularParcelas> calcularNumeroParcela(VendaCabecalho vendaCabecalho, List<CondicaoPagamento> condicaoPagamento) {
-        List<DiasCondicaoPagamento> diasPagamentos = diasCondicaoPagamentoRepository.findAllByIdCondicao(condicaoPagamento);
+        List<DiasCondicaoPagamento> diasPagamentos = diasCondicaoPagamentoRepository.listarTodosDiasPagamento(condicaoPagamento);
         AtomicInteger contador = new AtomicInteger(1);
 
 
         return diasPagamentos.stream()
                 .map(d -> new CalcularParcelas(d.getIdCondicao().getIdFpg().getIdFpg(), d.getIdCondicao().getId(),
-                        contador.getAndIncrement(), vendaCabecalho.getValorTotalVenda() / d.getIdCondicao().getQuantidadeParcelas(), vendaCabecalho.getDataVenda().plusDays(d.getDias()))).toList();
+                        contador.getAndIncrement(), vendaCabecalho.getValorTotalVenda() / d.getIdCondicao().getQuantidadeParcelas(),
+                        vendaCabecalho.getDataVenda().plusDays(d.getDias()), d.getIdCondicao().getQuantidadeParcelas())).toList();
     }
 }

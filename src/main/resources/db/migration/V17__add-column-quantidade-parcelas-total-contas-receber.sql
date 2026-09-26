@@ -1,0 +1,2 @@
+alter table contas_receber
+add column quantidade_total_parcelas integer
