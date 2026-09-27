@@ -1,10 +1,9 @@
 package com.techfix.beta2.domain.ordem_servico;
 
-import com.techfix.beta2.domain.aparelhos_cliente.AparelhoCliente;
+import com.techfix.beta2.domain.aparelho_cliente.AparelhoCliente;
 import com.techfix.beta2.domain.orcamento.Orcamento;
 import com.techfix.beta2.domain.ordem_servico.dto.DadosOSCadastro;
 import com.techfix.beta2.domain.pessoa.Pessoa;
-import com.techfix.beta2.domain.produto.Produto;
 import com.techfix.beta2.domain.usuario.Usuario;
 import com.techfix.beta2.domain.venda.VendaCabecalho;
 import jakarta.persistence.*;
@@ -33,7 +32,7 @@ public class OrdemServico {
     private LocalDateTime dataEntrada;
 
     @ManyToOne
-    @JoinColumn(name = "id_aparelho_cliente")
+    @JoinColumn(name = "aparelho_cliente")
     private AparelhoCliente aparelhoCliente;
 
     private String problemaRelatado;
@@ -41,11 +40,15 @@ public class OrdemServico {
     private String acessoriosCliente;
 
     @ManyToOne
-    @JoinColumn(name = "atendente_recebeu")
+    @JoinColumn(
+            name = "atendente_recebeu",
+            referencedColumnName = "nomeUsuario")
     private Usuario atendenteRecebeu;
 
     @ManyToOne
-    @JoinColumn(name = "nome_usuario")
+    @JoinColumn(
+            name = "tecnico_responsavel",
+            referencedColumnName = "nomeUsuario")
     private Usuario tecnicoResponsavel;
 
     private String diagnosticoTecnico;
@@ -63,13 +66,14 @@ public class OrdemServico {
     private LocalDateTime dataRetirada;
 
     @OneToOne
+    @JoinColumn(name = "id_nota_venda")
     private VendaCabecalho notaVenda;
 
 
-    public OrdemServico(DadosOSCadastro dto, Pessoa id, Usuario usuario, Produto produto) {
+    public OrdemServico(DadosOSCadastro dto, Pessoa id, Usuario usuario, AparelhoCliente aparelhoCliente) {
         this.pessoa = id;
         this.dataEntrada = LocalDateTime.now();
-        this.aparelhoCliente = new AparelhoCliente(dto, produto, pessoa);
+        this.aparelhoCliente = aparelhoCliente;
         this.problemaRelatado = dto.problemaRelatado();
         this.acessoriosCliente = dto.acessoriosCliente();
         this.atendenteRecebeu = usuario;
@@ -80,6 +84,9 @@ public class OrdemServico {
         }
     }
 
-
-
+    @Override
+    public String toString() {
+        return "problema " + problemaRelatado +
+                ", Aparelho " + aparelhoCliente;
+    }
 }

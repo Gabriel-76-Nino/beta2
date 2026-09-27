@@ -1,8 +1,7 @@
-package com.techfix.beta2.domain.aparelhos_cliente;
+package com.techfix.beta2.domain.aparelho_cliente;
 
 import com.techfix.beta2.domain.aparelho.TipoAparelho;
 import com.techfix.beta2.domain.ordem_servico.OrdemServico;
-import com.techfix.beta2.domain.ordem_servico.dto.DadosOSCadastro;
 import com.techfix.beta2.domain.pessoa.Pessoa;
 import com.techfix.beta2.domain.produto.Produto;
 import jakarta.persistence.*;
@@ -48,11 +47,8 @@ public class AparelhoCliente {
     @OneToMany(mappedBy = "aparelhoCliente")
     private List<OrdemServico> ordemServico;
 
-    public AparelhoCliente(DadosOSCadastro dto, Produto produto, Pessoa pessoa) {
-        this.produto = produto;
-        this.tipoAparelho = dto.tipoAparelho();
-        this.especificacoes = dto.especificacoes();
-        this.imei = dto.imei();
-        this.pessoa = pessoa;
+    @Override
+    public String toString() {
+        return "produto " + produto.getDescricao();
     }
 }

@@ -1,0 +1,2 @@
+alter table ordens_servicos
+add column data_retirada timestamp

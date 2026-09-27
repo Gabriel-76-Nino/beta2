@@ -1,6 +1,6 @@
 package com.techfix.beta2.domain.pessoa;
 
-import com.techfix.beta2.domain.aparelhos_cliente.AparelhoCliente;
+import com.techfix.beta2.domain.aparelho_cliente.AparelhoCliente;
 import com.techfix.beta2.domain.endereco.Endereco;
 import com.techfix.beta2.domain.ordem_servico.OrdemServico;
 import com.techfix.beta2.domain.pessoa.dto.CadastroPessoaDto;

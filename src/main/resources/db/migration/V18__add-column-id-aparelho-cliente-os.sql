@@ -1,0 +1,2 @@
+alter table ordens_servicos
+add id_aparelho_cliente bigint

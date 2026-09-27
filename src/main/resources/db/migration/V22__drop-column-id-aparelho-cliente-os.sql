@@ -1,0 +1,2 @@
+alter table ordens_servicos
+drop column id_aparelho_cliente

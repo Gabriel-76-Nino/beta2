@@ -2,10 +2,7 @@ package com.techfix.beta2.controller;
 
 import com.techfix.beta2.domain.orcamento.dto.DadosCadastroOrcamento;
 import com.techfix.beta2.domain.ordem_servico.OrdemServico;
-import com.techfix.beta2.domain.ordem_servico.dto.AlterarStatusOS;
-import com.techfix.beta2.domain.ordem_servico.dto.DadosAtribuirTecnico;
-import com.techfix.beta2.domain.ordem_servico.dto.DadosOSCadastro;
-import com.techfix.beta2.domain.ordem_servico.dto.AtribuirDiagnostico;
+import com.techfix.beta2.domain.ordem_servico.dto.*;
 import com.techfix.beta2.domain.ordem_servico.service.OrdemServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,29 +33,29 @@ public class OrdemServicoController {
 
     @PutMapping("/tecnico")
     @Transactional
-    public ResponseEntity<OrdemServico> atribuirTecnico (@RequestBody DadosAtribuirTecnico dto){
-        OrdemServico os = ordemServicoService.atribuirTecnico(dto);
+    public ResponseEntity<TodosDadosOS> atribuirTecnico (@RequestBody DadosAtribuirTecnico dto){
+        TodosDadosOS os = ordemServicoService.atribuirTecnico(dto);
         return ResponseEntity.ok(os);
     }
 
     @PutMapping("/diagnostico")
     @Transactional
-    public ResponseEntity<DadosOSCadastro> atribuirDianostico (@RequestBody AtribuirDiagnostico dto){
-        DadosOSCadastro os = ordemServicoService.atribuirDianostico(dto);
+    public ResponseEntity<TodosDadosOS> atribuirDianostico (@RequestBody AtribuirDiagnostico dto){
+        TodosDadosOS os = ordemServicoService.atribuirDianostico(dto);
         return ResponseEntity.ok(os);
     }
 
     @PostMapping("/orcamento")
     @Transactional
-    public ResponseEntity<List<DadosCadastroOrcamento>> cadastrarOrcamento (@RequestBody List<DadosCadastroOrcamento> dto){
-        List<DadosCadastroOrcamento> dadosCadastroOrcamento = ordemServicoService.cadastrarOrcamento(dto);
+    public ResponseEntity<DadosCadastroOrcamento> cadastrarOrcamento (@RequestBody DadosCadastroOrcamento dto){
+        DadosCadastroOrcamento dadosCadastroOrcamento = ordemServicoService.cadastrarOrcamento(dto);
         return ResponseEntity.ok(dadosCadastroOrcamento);
     }
 
     @PostMapping("/statusos")
     @Transactional
-    public ResponseEntity<DadosOSCadastro> alterarStatusOS (@RequestBody AlterarStatusOS dto){
-        DadosOSCadastro dadosOSCadastro = ordemServicoService.alterarStatusOS(dto);
+    public ResponseEntity<TodosDadosOS> alterarStatusOS (@RequestBody AlterarStatusOS dto){
+        TodosDadosOS dadosOSCadastro = ordemServicoService.alterarStatusOS(dto);
         return ResponseEntity.ok(dadosOSCadastro);
     }
 

@@ -1,6 +1,6 @@
 package com.techfix.beta2.domain.orcamento;
 
-import com.techfix.beta2.domain.orcamento.dto.DadosCadastroOrcamento;
+import com.techfix.beta2.domain.orcamento.dto.ListaProdutosCadastroDto;
 import com.techfix.beta2.domain.ordem_servico.OrdemServico;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -35,12 +34,11 @@ public class Orcamento {
     private StatusItemOrcamento statusItemOrcamento;
     private String observacoes;
     private LocalDateTime horarioOrcamento;
-    private LocalDate validadeOrcamento;
-
+    private LocalDateTime validadeOrcamento;
     private String fotoDiagnostico;
     private String fotoConcerto;
 
-    public Orcamento(DadosCadastroOrcamento dto, OrdemServico os) {
+    public Orcamento(ListaProdutosCadastroDto dto, OrdemServico os) {
         this.ordemServico = os;
         this.numeroItem = dto.numeroItem();
         this.idProduto = dto.idProduto();
