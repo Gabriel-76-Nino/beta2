@@ -1,0 +1,1 @@
+alter table compatibilidade rename to compatibilidades
