@@ -4,6 +4,7 @@ import com.techfix.beta2.domain.contas_receber.ContasReceber;
 import com.techfix.beta2.domain.contas_receber.ContasReceberRepository;
 import com.techfix.beta2.domain.contas_receber.ContasReceberService;
 import com.techfix.beta2.domain.desconto.TabelaDescontoRepository;
+import com.techfix.beta2.domain.movimentacao_mercadoria.MovimentacaoMercadoriaService;
 import com.techfix.beta2.domain.ordem_servico.OrdemServico;
 import com.techfix.beta2.domain.ordem_servico.OrdemServicoRepository;
 import com.techfix.beta2.domain.pagamento.*;
@@ -43,6 +44,8 @@ public class VendaCabecalhoService {
     private ContasReceberService contasReceberService;
     @Autowired
     private ContasReceberRepository contasReceberRepository;
+    @Autowired
+    private MovimentacaoMercadoriaService movimentacaoMercadoriaService;
 
     public VendaCabecalhoDto cadastrarVenda(VendaCabecalhoDto dto) {
 
@@ -76,6 +79,7 @@ public class VendaCabecalhoService {
         cabecalhoRepository.save(vendaCabecalho);
         contasReceberRepository.saveAll(contasReceber);
         corpoRepository.saveAll(vendaCorpo);
+        movimentacaoMercadoriaService.registrarSaidaVenda(vendaCorpo);
 
         return converteVendaParaDto(vendaCabecalho);
     }
