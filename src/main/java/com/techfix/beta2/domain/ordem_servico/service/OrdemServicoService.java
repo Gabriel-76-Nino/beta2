@@ -43,7 +43,9 @@ public class OrdemServicoService {
     public DadosOSCadastro cadastrarOS(DadosOSCadastro dto) {
         Pessoa pessoa = pessoaRepository.getReferenceById(dto.pessoa());
         Usuario usuario = usuarioRepository.getReferenceByNomeUsuario(dto.atendenteRecebeu());
-        Optional<AparelhoCliente> aparelhoClienteBusca = aparelhoClienteRepository.findById(dto.aparelhoClienteDto().id());
+        Optional<AparelhoCliente> aparelhoClienteBusca = dto.aparelhoClienteDto().id() == null
+                ? Optional.empty()
+                : aparelhoClienteRepository.findById(dto.aparelhoClienteDto().id());
         AparelhoCliente aparelhoCliente;
 
 
@@ -106,7 +108,7 @@ public class OrdemServicoService {
                         os.getAparelhoCliente().getPessoa().getId()),
                 os.getProblemaRelatado(), os.getFotoEntrada(), os.getAcessoriosCliente(),
                 os.getAtendenteRecebeu().getNomeUsuario(),
-                os.getTecnicoResponsavel().getNomeUsuario(),
+                os.getTecnicoResponsavel() == null ? null : os.getTecnicoResponsavel().getNomeUsuario(),
                 os.getDiagnosticoTecnico(), os.getDiagnosticoIgualRelato(),
                 new DadosCadastroOrcamento(os.getId(), os.getOrcamento().stream()
                         .map(o -> new ListaProdutosCadastroDto(
