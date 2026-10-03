@@ -1,8 +1,6 @@
 package com.techfix.beta2.domain.movimentacao_mercadoria;
 
-import com.techfix.beta2.domain.agregados_produto.estoque.EstoqueRepository;
 import com.techfix.beta2.domain.agregados_produto.estoque.EstoqueService;
-import com.techfix.beta2.domain.produto.ProdutoRepository;
 import com.techfix.beta2.domain.venda.VendaCorpo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
