@@ -2,21 +2,56 @@
 
 Interface inspirada no SAP Fiori, com cabeçalho azul, área de trabalho com aplicações, tabelas compactas, filtros, paginação, detalhes e formulários. Não utiliza componentes oficiais SAP nem pretende reproduzir todas as funcionalidades do S/4HANA.
 
+## Dois projetos independentes
+
+| Projeto | Local | Execução | Endereço padrão |
+| --- | --- | --- | --- |
+| Backend Java/Spring Boot | `src/` + `pom.xml` na raiz | IntelliJ ou `./mvnw spring-boot:run` | `http://localhost:8080` |
+| Frontend JavaScript | `frontend/` | `npm run dev` dentro de `frontend/` | `http://127.0.0.1:5173` |
+
+O frontend não está mais em `src/main/resources/static` nem é empacotado no JAR. Tem seus próprios arquivos, configuração, scripts e testes. Pode ser copiado integralmente para outra pasta ou repositório e executado sem o código Java. Por enquanto os dois projetos são versionados no mesmo repositório, mas são independentes em execução e entrega.
+
+O frontend não acessa o banco. Faz requisições HTTP para `/api/...` em seu próprio servidor; um proxy encaminha essas chamadas ao endereço `BACKEND_URL` do Spring Boot. Isso preserva os endpoints e evita precisar de CORS para a configuração inicial. Não há regras de negócio nem persistência no servidor do frontend.
+
 ## Executar com o backend
 
-1. Use o Java 21 ou superior, conforme `pom.xml`, e configure o PostgreSQL que seu backend já utiliza.
-2. Execute `./mvnw spring-boot:run` ou inicie `Beta2Application` no IntelliJ.
-3. Acesse **http://localhost:8080/beta/index.html**. Se alterou a porta do Spring, ajuste o endereço.
-
-Os arquivos estão em `src/main/resources/static/beta`. O próprio Spring Boot serve a interface, que chama as APIs no mesmo servidor. Não é necessário npm, build de frontend nem configuração de CORS. Essa escolha reduz os passos para testar a primeira beta; uma futura migração para React/TypeScript pode ser discutida sem alterar os contratos da API.
-
-## Experimentar sem banco
+1. Inicie o backend no IntelliJ ou execute `./mvnw spring-boot:run` na raiz, usando Java 21 ou superior e o PostgreSQL já configurado no projeto.
+2. Em outro terminal:
 
 ```bash
-python3 -m http.server 8765 --directory src/main/resources/static
+cd frontend
+cp .env.example .env
+npm run dev
 ```
 
-Abra **http://localhost:8765/beta/index.html?demo=1**. O aviso de demonstração permanece visível; os dados são fictícios e as alterações ficam apenas em memória até recarregar. Essa opção permite avaliar a interface e não comprova a execução das regras do backend. Não abra o HTML via `file://`, pois ele usa módulos JavaScript.
+3. Abra **http://127.0.0.1:5173**.
+
+Requer Node.js 22 ou superior. Não há dependências npm externas: não é necessário `npm install`. O arquivo `.env` pode definir `BACKEND_URL`, `PORT` e `HOST`; o `.env.example` documenta os valores padrão. Reinicie o frontend depois de mudar o `.env`.
+
+Exemplo com o backend em outro computador:
+
+```dotenv
+BACKEND_URL=http://192.168.0.6:8080
+PORT=5173
+HOST=127.0.0.1
+```
+
+`BACKEND_URL` é resolvido pelo servidor do frontend, e não pelo navegador. Para disponibilizar o frontend na rede local, use `HOST=0.0.0.0` e acesse o IP do computador que executa o frontend. A autenticação ainda é uma decisão pendente do ERP.
+
+## Experimentar sem backend ou banco
+
+```bash
+cd frontend
+npm run dev
+```
+
+Abra **http://127.0.0.1:5173/?demo=1**. O aviso de demonstração permanece visível; os dados são fictícios e as alterações ficam apenas em memória até recarregar. A interface pode abrir mesmo com o backend desligado. Esse modo não comprova as regras do backend.
+
+## Entrega separada
+
+`npm start` executa o servidor independente sem modo watch. A pasta `frontend/` contém tudo que ele precisa. Configuração e ciclo de execução do Java continuam na raiz. O frontend não lê entidades, migrations ou propriedades Spring em tempo de execução: `public/contracts.js` contém uma cópia explícita dos contratos da API, que deve acompanhar alterações futuras dos DTOs.
+
+Os arquivos de `public/` também podem ser servidos por outro servidor web, desde que ele encaminhe `/api/...` para o backend, retirando o prefixo `/api`. Publicação e autenticação serão definidas em uma etapa própria.
 
 ## Operações implementadas
 
@@ -56,11 +91,11 @@ Preservadas as grafias atuais da API: `/compatibildade`, `quatidadeParcelas` e `
 ## Verificação
 
 ```bash
-node --test frontend-tests/*.test.mjs
+npm test --prefix frontend
 ./mvnw -Dtest=OrdemServicoServiceTest test
 ```
 
-Nesta implementação passaram 10 testes Node: conversões, validação de OS/orçamento/venda/pagamento, erros HTTP/JSON, escape de HTML e renderização programática das telas/formulários com um DOM simulado. O DOM simulado não substitui verificação em navegador.
+Nesta implementação passaram 15 testes Node, incluindo testes HTTP reais do servidor independente (arquivos, proxy, método/query/body/status e backend indisponível), além de: conversões, validação de OS/orçamento/venda/pagamento, erros HTTP/JSON, escape de HTML e renderização programática das telas/formulários com um DOM simulado. O DOM simulado não substitui verificação em navegador.
 
 A compilação/testes Java e execução com banco não puderam ser concluídos neste ambiente: Maven Central ficou inacessível e o Java disponível é 17, abaixo do 21 declarado no projeto. A instalação do Chromium também falhou por download incompleto; layout, responsividade e interações reais precisam de conferência em navegador no ambiente local.
 

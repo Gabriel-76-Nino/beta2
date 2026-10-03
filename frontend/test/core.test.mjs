@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {typedValue,validatePayload,request,escapeHtml} from '../src/main/resources/static/beta/core.mjs';
+import {typedValue,validatePayload,request,escapeHtml} from '../public/core.mjs';
 test('conversão preserva zeros, nulos, booleanos e rejeita números inválidos',()=>{
  assert.equal(typedValue('Long',''),null);assert.equal(typedValue('Integer','0'),0);assert.equal(typedValue('Boolean',false),false);
  assert.throws(()=>typedValue('Long','1.2'));assert.throws(()=>typedValue('Double','NaN'));assert.throws(()=>typedValue('Map<String, Object>','[]'));

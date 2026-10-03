@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-import * as core from '../src/main/resources/static/beta/core.mjs';
-const dir=new URL('../src/main/resources/static/beta/',import.meta.url);
+import * as core from '../public/core.mjs';
+const dir=new URL('../public/',import.meta.url);
 function setup(){
  const elements=new Map(), listeners={};
  function element(sel){if(!elements.has(sel))elements.set(sel,{innerHTML:'',textContent:'',value:'',dataset:{},classList:{add(){},remove(){},toggle(){}},setAttribute(){},removeAttribute(){},addEventListener(type,fn){listeners[sel+':'+type]=fn;},showModal(){this.open=true;},close(){this.open=false;}});return elements.get(sel);}
