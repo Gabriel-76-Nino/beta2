@@ -41,5 +41,8 @@ public class Aparelho {
     private String observacoes;
     private String pecasTrocadas;
     private String statusConservacao;
+    private Boolean emEstoque;
+    private Double custo;
+    private Double precoVenda;
 
 }

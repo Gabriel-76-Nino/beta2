@@ -71,8 +71,6 @@ public class VendaCabecalhoService {
 
         List<ContasReceber> contasReceber = contasReceberService.cadastrarContasReceber(vendaCabecalho, dto);
 
-        System.out.println(contasReceber);
-
         vendaCabecalho.setItens(vendaCorpo);
         vendaCabecalho.setContasReceber(contasReceber);
 

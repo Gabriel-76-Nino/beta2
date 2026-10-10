@@ -11,6 +11,9 @@ public record AparelhoDto(
         String imei,
         String observacoes,
         String pecasTrocadas,
-        String statusConservacao
+        String statusConservacao,
+        Boolean emEstoque,
+        Double custo,
+        Double precoVenda
 ) {
 }

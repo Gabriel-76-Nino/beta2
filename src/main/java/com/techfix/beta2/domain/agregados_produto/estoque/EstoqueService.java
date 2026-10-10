@@ -19,4 +19,10 @@ public class EstoqueService {
             m.getProduto().getEstoque().setEstoqueContabil(estoqueAtual + (m.getQuantidade() * m.getTipoMovimentacao().getAcrecentaDiminui()));
         }
     }
+
+    public void registrarQuantidadeUnitario(MovimentacaoMercadoria movimentacao) {
+        int estoqueAtual = movimentacao.getProduto().getEstoque().getEstoqueContabil();
+        movimentacao.getProduto().getEstoque().setEstoqueContabil(estoqueAtual +
+                movimentacao.getQuantidade() * movimentacao.getTipoMovimentacao().getAcrecentaDiminui());
+    }
 }
