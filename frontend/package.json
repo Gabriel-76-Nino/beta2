@@ -1,0 +1,13 @@
+{
+  "name": "techfix-frontend-beta",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Frontend independente do TechFix ERP, inspirado no SAP Fiori",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev": "node --watch --env-file-if-exists=.env server.mjs",
+    "start": "node --env-file-if-exists=.env server.mjs",
+    "test": "node --test test/*.test.mjs"
+  }
+}
